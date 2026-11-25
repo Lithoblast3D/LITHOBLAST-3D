@@ -1,0 +1,428 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#071522">
+<meta name="description" content="LITHOBLAST 3D - Software de ingeniería minera. Descarga gratuita para Windows.">
+<title>LITHOBLAST 3D | Ingeniería Minera</title>
+
+<style>
+:root {
+  --bg:#071522;
+  --panel:#10283a;
+  --cyan:#38c8dc;
+  --gold:#e8b85b;
+  --white:#f4f8fb;
+  --muted:#a6b8c6;
+  --border:#254257;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--white);
+  font-family:"Segoe UI",Arial,sans-serif;
+  line-height:1.65;
+}
+a{text-decoration:none;color:inherit}
+.container{width:min(1160px,90%);margin:auto}
+
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(7,21,34,.96);
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid var(--border);
+}
+nav{
+  min-height:76px;display:flex;align-items:center;
+  justify-content:space-between;gap:20px;
+}
+.logo{font-size:21px;font-weight:900;letter-spacing:2px}
+.logo span{color:var(--cyan)}
+.navlinks{display:flex;gap:25px;font-size:14px;color:var(--muted)}
+.navlinks a:hover{color:var(--cyan)}
+
+.hero{
+  min-height:610px;display:flex;align-items:center;
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(ellipse at 75% 30%,#16445b 0%,transparent 42%),
+    linear-gradient(125deg,#102b3e,#071522 70%);
+  border-bottom:1px solid var(--border);
+}
+.hero:before{
+  content:"";position:absolute;width:600px;height:600px;
+  right:-100px;top:20px;border:1px solid #38c8dc30;
+  border-radius:50%;
+  box-shadow:0 0 0 55px #38c8dc0a,0 0 0 110px #38c8dc08;
+}
+.hero-grid{
+  position:relative;z-index:2;display:grid;
+  grid-template-columns:1.15fr .85fr;
+  align-items:center;gap:50px;padding:90px 0;
+}
+.eyebrow{
+  color:var(--gold);font-size:12px;font-weight:800;
+  letter-spacing:4px;
+}
+.hero h1{
+  font-size:clamp(43px,5.6vw,72px);
+  line-height:1.04;letter-spacing:-3px;margin:24px 0;
+}
+.hero h1 span{color:var(--cyan)}
+.hero-description{color:var(--muted);font-size:17px;max-width:600px}
+.actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:14px 23px;border-radius:7px;
+  background:var(--cyan);color:#061522;
+  font-weight:850;font-size:13px;transition:.25s;
+}
+.btn:hover{transform:translateY(-3px);box-shadow:0 10px 30px #38c8dc35}
+.btn-outline{background:transparent;border:1px solid #527084;color:white}
+.hero-meta{
+  display:flex;flex-wrap:wrap;gap:20px;margin-top:30px;
+  color:var(--muted);font-size:12px;
+}
+
+/* Ilustración conceptual */
+.visual{min-height:360px;position:relative;display:grid;place-items:center}
+.visual-card{
+  width:100%;max-width:410px;min-height:310px;
+  padding:25px;border:1px solid #3b7588;border-radius:15px;
+  background:linear-gradient(145deg,#173a50,#091a29);
+  box-shadow:0 25px 80px #0007;overflow:hidden;
+}
+.visual-top,.visual-bottom{
+  display:flex;justify-content:space-between;
+  font-size:11px;letter-spacing:2px;color:var(--muted);
+}
+.status,.visual-bottom strong{color:var(--cyan)}
+.mine-art{width:100%;height:185px;margin:15px 0}
+.visual-bottom{border-top:1px solid var(--border);padding-top:13px}
+
+/* Secciones */
+section{padding:85px 0;border-bottom:1px solid var(--border)}
+.section-label{
+  color:var(--gold);font-size:12px;font-weight:800;letter-spacing:3px;
+}
+.section-title{font-size:clamp(29px,4vw,43px);margin:12px 0;line-height:1.15}
+.section-description{max-width:760px;color:var(--muted)}
+
+.cards{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:20px;margin-top:35px;
+}
+.card{
+  padding:27px;background:linear-gradient(145deg,#132f43,#0b1e2e);
+  border:1px solid var(--border);border-radius:12px;transition:.25s;
+}
+.card:hover{transform:translateY(-5px);border-color:var(--cyan)}
+.card-number{color:var(--gold);font-size:12px;letter-spacing:2px;font-weight:800}
+.card h3{font-size:20px;margin:15px 0 8px}
+.card p{color:var(--muted);font-size:14px}
+
+.download-panel{
+  display:grid;grid-template-columns:1.2fr .8fr;
+  align-items:center;gap:35px;padding:38px;
+  background:linear-gradient(120deg,#14364b,#0b1d2c);
+  border:1px solid #315b71;border-radius:17px;margin-top:30px;
+}
+.download-panel h3{font-size:29px;margin:10px 0}
+.download-panel p{color:var(--muted)}
+.download-box{
+  padding:27px;text-align:center;background:#071522;
+  border:1px solid var(--border);border-radius:12px;
+}
+.download-box h4{font-size:19px}
+.download-box p{font-size:13px;margin:8px 0 20px}
+.download-box .btn{width:100%}
+
+.video-placeholder{
+  min-height:330px;display:grid;place-items:center;
+  text-align:center;padding:25px;margin-top:30px;
+  border:1px dashed #477086;border-radius:14px;
+  background:radial-gradient(ellipse at center,#16435a,transparent 70%),#0b1e2d;
+}
+.play-circle{
+  width:65px;height:65px;display:grid;place-items:center;
+  border:1px solid var(--cyan);border-radius:50%;
+  color:var(--cyan);font-size:24px;margin:0 auto 15px;
+}
+.video-placeholder p{color:var(--muted);font-size:13px}
+.gallery{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:18px;margin-top:22px;
+}
+.gallery-item{
+  min-height:190px;display:grid;place-items:center;
+  padding:20px;text-align:center;background:#10283a;
+  border:1px dashed #45657b;border-radius:12px;
+}
+.gallery-item strong{display:block;color:var(--cyan);margin-bottom:7px}
+.gallery-item span{color:var(--muted);font-size:12px}
+
+.steps{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:25px;margin-top:35px;
+}
+.step{border-left:2px solid var(--cyan);padding:5px 0 5px 20px}
+.step-number{color:var(--gold);font-weight:800;font-size:12px}
+.step h3{margin:8px 0}
+.step p{color:var(--muted);font-size:14px}
+
+.support-box{
+  padding:38px;border:1px solid var(--border);
+  border-radius:14px;background:linear-gradient(120deg,#122f43,#0a1d2c);
+  margin-top:25px;
+}
+footer{padding:35px 0;color:var(--muted);font-size:13px}
+.footer-content{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px}
+footer a:hover{color:var(--cyan)}
+
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr}
+  .visual{max-width:500px;width:100%;margin:auto}
+}
+@media(max-width:700px){
+  .cards,.gallery,.steps,.download-panel{grid-template-columns:1fr}
+  .navlinks{gap:12px;font-size:12px;flex-wrap:wrap}
+  nav{padding:15px 0}
+  .hero h1{letter-spacing:-2px}
+  section{padding:65px 0}
+  .download-panel{padding:24px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="container">
+<nav>
+<a href="#" class="logo"><span>LITHO</span>BLAST 3D</a>
+<div class="navlinks">
+<a href="#software">Software</a>
+<a href="#descarga">Descarga</a>
+<a href="#galeria">Galería</a>
+<a href="#instalacion">Instalación</a>
+<a href="#soporte">Soporte</a>
+</div>
+</nav>
+</div>
+</header>
+
+<main>
+
+<!-- PORTADA -->
+<div class="hero">
+<div class="container hero-grid">
+
+<div>
+<div class="eyebrow">SOFTWARE DE INGENIERÍA MINERA</div>
+<h1>Ingeniería minera.<br><span>Una nueva dimensión.</span></h1>
+
+<p class="hero-description">
+Conoce LITHOBLAST 3D, una aplicación desarrollada
+para el ámbito de la ingeniería minera. Explora
+sus herramientas y descarga la versión disponible.
+</p>
+
+<div class="actions">
+<a class="btn"
+href="https://github.com/Lithoblast3D/LITHOBLAST-3D/releases/download/v3.6.0/LITHOBLAST3D-3.6.0-instalador.exe">
+↓ DESCARGAR SOFTWARE
+</a>
+<a class="btn btn-outline"
+href="https://github.com/Lithoblast3D/LITHOBLAST-3D">
+EXPLORAR PROYECTO ↗
+</a>
+</div>
+
+<div class="hero-meta">
+<span>✓ VERSIÓN 3.6.0</span>
+<span>✓ WINDOWS 64 BITS</span>
+<span>✓ DESCARGA GRATUITA</span>
+</div>
+</div>
+
+<div class="visual">
+<div class="visual-card">
+<div class="visual-top">
+<span>LITHOBLAST 3D</span>
+<span class="status">● SOFTWARE</span>
+</div>
+<svg class="mine-art" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="terrain" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#38c8dc" stop-opacity=".8"/>
+<stop offset="1" stop-color="#16445b" stop-opacity=".1"/>
+</linearGradient>
+</defs>
+<path d="M0 65 L70 35 L130 62 L190 25 L250 60 L320 20 L400 55 L400 200 L0 200Z" fill="url(#terrain)" opacity=".25"/>
+<path d="M0 65 L70 35 L130 62 L190 25 L250 60 L320 20 L400 55" stroke="#38c8dc" stroke-width="2" fill="none"/>
+<path d="M35 85 L100 105 L165 85 L230 105 L295 85 L365 105" stroke="#38c8dc" stroke-opacity=".75" fill="none" stroke-width="2"/>
+<path d="M65 120 L125 140 L185 120 L245 140 L305 120 L345 135" stroke="#e8b85b" stroke-opacity=".85" fill="none" stroke-width="2"/>
+<path d="M100 155 L160 170 L220 155 L280 170 L315 160" stroke="#38c8dc" stroke-opacity=".6" fill="none" stroke-width="2"/>
+<g fill="#e8b85b">
+<circle cx="70" cy="35" r="4"/><circle cx="190" cy="25" r="4"/><circle cx="320" cy="20" r="4"/>
+</g>
+<g stroke="#38c8dc" stroke-width="1" stroke-dasharray="4 5" opacity=".8">
+<path d="M70 35 V170"/><path d="M190 25 V155"/><path d="M320 20 V160"/>
+</g>
+</svg>
+<div class="visual-bottom">
+<span>MINING ENGINEERING</span>
+<strong>3D TECHNOLOGY</strong>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- SOFTWARE -->
+<section id="software">
+<div class="container">
+<div class="section-label">CONOCE EL PROGRAMA</div>
+<h2 class="section-title">Tecnología para la ingeniería minera</h2>
+<p class="section-description">
+LITHOBLAST 3D es una propuesta de software orientada
+al ámbito de la ingeniería minera. Conoce su entorno
+de trabajo y las funcionalidades disponibles.
+</p>
+<div class="cards">
+<div class="card">
+<div class="card-number">01 / ENTORNO DIGITAL</div>
+<h3>Interfaz de trabajo</h3>
+<p>Accede a las herramientas y opciones disponibles desde un entorno de escritorio.</p>
+</div>
+<div class="card">
+<div class="card-number">02 / VISUALIZACIÓN</div>
+<h3>Entorno tridimensional</h3>
+<p>Explora las visualizaciones tridimensionales que incorpora la aplicación.</p>
+</div>
+<div class="card">
+<div class="card-number">03 / DISTRIBUCIÓN</div>
+<h3>Versión para Windows</h3>
+<p>Descarga la versión 3.6.0 desde el lanzamiento oficial del proyecto.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- DESCARGA -->
+<section id="descarga">
+<div class="container">
+<div class="section-label">DESCARGA OFICIAL</div>
+<h2 class="section-title">Comienza con LITHOBLAST 3D</h2>
+<div class="download-panel">
+<div>
+<div class="eyebrow">LANZAMIENTO DISPONIBLE</div>
+<h3>LITHOBLAST 3D 3.6.0</h3>
+<p>Instalador ejecutable para Windows de 64 bits. Obtén el archivo desde el repositorio oficial del proyecto.</p>
+<p style="margin-top:16px;font-size:13px">
+<strong>Archivo:</strong><br>
+LITHOBLAST3D-3.6.0-instalador.exe
+</p>
+</div>
+<div class="download-box">
+<h4>VERSIÓN 3.6.0</h4>
+<p>Windows · 64 bits · Instalador EXE</p>
+<a class="btn"
+href="https://github.com/Lithoblast3D/LITHOBLAST-3D/releases/download/v3.6.0/LITHOBLAST3D-3.6.0-instalador.exe">
+DESCARGAR AHORA
+</a>
+</div>
+</div>
+<p style="margin-top:18px;font-size:13px;color:var(--muted)">
+¿Prefieres consultar los detalles del lanzamiento?
+<a style="color:var(--cyan)" href="https://github.com/Lithoblast3D/LITHOBLAST-3D/releases/tag/v3.6.0">Ver versión 3.6.0 en GitHub ↗</a>
+</p>
+</div>
+</section>
+
+<!-- GALERÍA -->
+<section id="galeria">
+<div class="container">
+<div class="section-label">EXPLORA LA APLICACIÓN</div>
+<h2 class="section-title">Conoce LITHOBLAST 3D</h2>
+<p class="section-description">
+Próximamente encontrarás aquí capturas reales de la aplicación y su video promocional oficial.
+</p>
+<div class="video-placeholder">
+<div>
+<div class="play-circle">▶</div>
+<h3>VIDEO PROMOCIONAL</h3>
+<p>Próximamente · Presentación oficial de LITHOBLAST 3D</p>
+</div>
+</div>
+<div class="gallery">
+<div class="gallery-item"><div><strong>CAPTURA 01</strong><span>Interfaz principal del programa</span></div></div>
+<div class="gallery-item"><div><strong>CAPTURA 02</strong><span>Herramientas de la aplicación</span></div></div>
+<div class="gallery-item"><div><strong>CAPTURA 03</strong><span>Visualización y resultados</span></div></div>
+</div>
+</div>
+</section>
+
+<!-- INSTALACIÓN -->
+<section id="instalacion">
+<div class="container">
+<div class="section-label">PRIMEROS PASOS</div>
+<h2 class="section-title">Instala LITHOBLAST 3D</h2>
+<p class="section-description">Sigue estos pasos generales para instalar la versión disponible en tu computadora.</p>
+<div class="steps">
+<div class="step">
+<div class="step-number">PASO 01</div>
+<h3>Descarga</h3>
+<p>Ingresa al lanzamiento oficial y descarga el instalador para Windows.</p>
+</div>
+<div class="step">
+<div class="step-number">PASO 02</div>
+<h3>Instalación</h3>
+<p>Ejecuta el archivo y sigue las indicaciones del asistente de instalación.</p>
+</div>
+<div class="step">
+<div class="step-number">PASO 03</div>
+<h3>Iniciar aplicación</h3>
+<p>Abre LITHOBLAST 3D desde el acceso directo o el menú de inicio.</p>
+</div>
+</div>
+<div class="actions">
+<a class="btn btn-outline"
+href="https://github.com/Lithoblast3D/LITHOBLAST-3D/releases/tag/v3.6.0">
+CONSULTAR LANZAMIENTO
+</a>
+</div>
+</div>
+</section>
+
+<!-- SOPORTE -->
+<section id="soporte">
+<div class="container">
+<div class="section-label">COMUNIDAD Y ACTUALIZACIONES</div>
+<h2 class="section-title">Seguimos evolucionando</h2>
+<p class="section-description">Consulta los nuevos lanzamientos, comparte sugerencias o informa sobre algún inconveniente.</p>
+<div class="support-box">
+<div class="actions">
+<a class="btn" href="https://github.com/Lithoblast3D/LITHOBLAST-3D/releases">FUTURAS VERSIONES</a>
+<a class="btn btn-outline" href="https://github.com/Lithoblast3D/LITHOBLAST-3D/issues">SOPORTE E INCIDENCIAS</a>
+<a class="btn btn-outline" href="https://github.com/Lithoblast3D/LITHOBLAST-3D">GITHUB OFICIAL ↗</a>
+</div>
+</div>
+</div>
+</section>
+
+</main>
+
+<footer>
+<div class="container footer-content">
+<span>© 2026 LITHOBLAST 3D · Software de ingeniería minera</span>
+<a href="https://github.com/Lithoblast3D/LITHOBLAST-3D">Repositorio oficial ↗</a>
+</div>
+</footer>
+
+</body>
+</html>
